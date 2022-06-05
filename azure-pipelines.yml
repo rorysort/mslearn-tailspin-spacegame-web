@@ -38,14 +38,11 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
-- template: build.yml
-  parameters:
-    buildConfiguration: 'Debug'
+- task: DotNetCoreCLI@2
+  displayName: 'build'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration Release'
+    projects: '**/*.csproj'
 
-- template: build.yml
-  parameters:
-    buildConfiguration: 'Release'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  condition: succeeded()
